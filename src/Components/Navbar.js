@@ -14,7 +14,7 @@ export default function Navbar() {
   }
 
   return (
-    <header id="navbar" className="bg-white w-full h-20 shadow-2xl flex justify-between items-center fixed">
+    <header id="navbar" className="bg-white w-full h-20 shadow-2xl flex justify-between items-center fixed z-40">
       <Link to="/" className="ml-16 flex">
         <img className="w-14 h-8" src={Logo} alt="logo"></img>
         <img className="w-56 h-8 ml-4" src={Name} alt="logo-name"></img>
@@ -27,7 +27,7 @@ export default function Navbar() {
           <ul className='text-lg font-semibold w-full h-full'>
             <section className='flex justify-center items-center w-full h-1/3 border-b-2'>OOO님, 안녕하세요!</section>
             <Link to="/products/list" className='flex justify-center items-center w-full h-1/3 border-b-2'><GiPresent size="30"/> 상품리스트 페이지</Link>
-            <Link to="/bookmark" className='flex justify-center items-center w-full h-1/3 border-b-2'><AiOutlineStar size="30"/> 북마크 페이지</Link>
+            <Link to="/bookmark" className='flex justify-center items-center w-full h-1/3'><AiOutlineStar size="30"/> 북마크 페이지</Link>
           </ul>
         </section>
       }

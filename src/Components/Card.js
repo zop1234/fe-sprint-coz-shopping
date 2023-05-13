@@ -1,112 +1,102 @@
-import React, { useState, useEffect } from 'react';
-
-// export default function Card({data, idx}) {
-//   // const [data, setData] = useState("");
-
-//   // useEffect(() => {
-//   //   fetch('http://cozshopping.codestates-seb.link/api/v1/products', {
-//   //     method: 'GET',
-//   //     headers: {
-//   //       'Content-Type': 'application/json',
-//   //     }
-//   //   })
-//   //     .then((res) => res.json())
-//   //     .then((data) => console.log(data));
-//   // }, []);
-//   console.log(data);
-//   return (
-//     <section className="w-264 h-264">
-//       {() => {
-//         switch (data.type) {
-//           case "Product":
-//             return (
-//               <>
-//                 <img className="w-264 h-52 rounded-xl" src={data.image_url} alt={data.id}></img>
-//                 <span className="font-bold">{data.title}</span>
-//               </>
-//             );
-//           case "Category":
-//             return (
-//               <>
-//                 <img className="w-264 h-52 rounded-xl" src={data.image_url} alt={data.id}></img>
-//                 <span className="font-bold">{data.title}</span>
-//               </>
-//             );
-//           case "Exhibition":
-//             return (
-//               <>
-//                 <img className="w-264 h-52 rounded-xl" src={data.image_url} alt={data.id}></img>
-//                 <span className="font-bold">{data.sub_title}</span>
-//               </>
-//             );
-//           case "Brand":
-//             return (
-//               <>
-//                 <img className="w-264 h-52 rounded-xl" src={data.brand_image_url} alt="product"></img>
-//                 <span className="font-bold">{data.brand_name}</span>
-//               </>
-//             );
-//           default:
-//             return (
-//               <>
-//                 <img className="w-264 h-52 rounded-xl" src={data.brand_image_url} alt="product"></img>
-//                 <span className="font-bold">{data.brand_name}</span>
-//               </>
-//             );
-//         }
-//       }}
-//       <span className="font-bold">{data.title}</span>
-//     </section>
-//   );
-// }
+import React, { useState } from 'react';
+import Modal from './Modal';
+import StarOn from '../img/star-on.png';
+import StarOff from '../img/star-off.png';
 
 
-export default function Card({data}) {
+export default function Card({data, bookmark_true}) {
+  const [mark, setMark] = useState(bookmark_true ? true : false);
+  const [modal, setModal] = useState(false);
+
+  const markHandler = () => {
+    if (mark) {
+      setMark(false);
+      const result = JSON.parse(localStorage.getItem('bookmark')).filter((x) => x.id !== data.id);
+      localStorage.setItem('bookmark', JSON.stringify(result));
+    }
+    else if (!mark) {
+      setMark(true);
+      if (localStorage.getItem('bookmark') === null) {
+        localStorage.setItem('bookmark', JSON.stringify([data]));
+      }
+      else if (localStorage.getItem('bookmark') !== null) {
+        const bookMarkList = [...JSON.parse(localStorage.getItem('bookmark')), data];
+        localStorage.setItem('bookmark', JSON.stringify(bookMarkList));
+      }
+    }
+
+    return window.location.reload();
+  }
+
+  const modalClickHandler = () => {
+    setModal(true)
+  }
+  
   switch (data.type) {
     case "Product":
       return (
-        <section className="w-264 h-264">
-          <img className="w-264 h-52 rounded-xl" src={data.image_url} alt={data.id}></img>
-          <section className='flex justify-between mt-1'>
-            <div className="font-bold">{data.title}</div>
-            <div>
-              <div className='text-right font-bold text-violet-600'>{data.discountPercentage}%</div>
-              <div className='font-semibold'>{data.price}원</div>
-            </div>
+        <>
+          <section className="w-264 h-264 relative">
+            <img className="w-264 h-52 rounded-xl cursor-pointer" src={data.image_url} alt={data.id} onClick={modalClickHandler}></img>
+            <section className='flex justify-between mt-1'>
+              <div className="font-bold cursor-pointer" onClick={modalClickHandler}>{data.title}</div>
+              <div>
+                <div className='text-right font-bold text-violet-600'>{data.discountPercentage}%</div>
+                <div className='font-semibold'>{data.price}원</div>
+              </div>
+            </section>
+            {mark ? <img className="absolute top-40 right-4 cursor-pointer" src={StarOn} alt="북마크" onClick={markHandler}></img> : 
+            <img className="absolute top-40 right-4 cursor-pointer" src={StarOff} alt="북마크" onClick={markHandler}></img>}
           </section>
-        </section>
+          <Modal imgUrl={data.image_url} title={data.title} modal={modal} setModal={setModal} mark={mark} setMark={setMark} data={data}/>
+        </>
       );
     case "Category":
       return (
-        <section className="w-264 h-264">
-          <img className="w-264 h-52 rounded-xl" src={data.image_url} alt={data.id}></img>
-          <section className='mt-1'>
-            <div className="font-bold">#{data.title}</div>
+        <>
+          <section className="w-264 h-264 relative">
+            <img className="w-264 h-52 rounded-xl cursor-pointer" src={data.image_url} alt={data.id} onClick={modalClickHandler}></img>
+            <section className='mt-1'>
+              <div className="font-bold cursor-pointer" onClick={modalClickHandler}>#{data.title}</div>
+            </section>
+            {mark ? <img className="absolute top-40 right-4 cursor-pointer" src={StarOn} alt="북마크" onClick={markHandler}></img> : 
+            <img className="absolute top-40 right-4 cursor-pointer" src={StarOff} alt="북마크" onClick={markHandler}></img>}
           </section>
-        </section>
+          <Modal imgUrl={data.image_url} title={`#${data.title}`} modal={modal} setModal={setModal} mark={mark} setMark={setMark} data={data}/>
+        </>
       );
     case "Exhibition":
       return (
-        <section className="w-264 h-264">
-          <img className="w-264 h-52 rounded-xl" src={data.image_url} alt={data.id}></img>
-          <section className='mt-1 mt-1'>
-            <div className="font-bold">{data.sub_title}</div>
-            <div className="font-semibold">{data.title}</div>
+        <>
+          <section className="w-264 h-264 relative">
+            <img className="w-264 h-52 rounded-xl cursor-pointer" src={data.image_url} alt={data.id} onClick={modalClickHandler}></img>
+            <section className='mt-1 mt-1'>
+              <div className="font-bold cursor-pointer" onClick={modalClickHandler}>{data.sub_title}</div>
+              <div className="font-semibold">{data.title}</div>
+            </section>
+            {mark ? <img className="absolute top-40 right-4 cursor-pointer" src={StarOn} alt="북마크" onClick={markHandler}></img> : 
+            <img className="absolute top-40 right-4 cursor-pointer" src={StarOff} alt="북마크" onClick={markHandler}></img>}
           </section>
-        </section>
+          <Modal imgUrl={data.image_url} title={data.sub_title} modal={modal} setModal={setModal} mark={mark} setMark={setMark} data={data}/>
+        </>
       );
     case "Brand":
       return (
-        <section className="w-264 h-264">
-          <img className="w-264 h-52 rounded-xl" src={data.brand_image_url} alt="product"></img>
-          <section className='flex justify-between mt-1'>
-            <div className="font-bold">{data.brand_name}</div>
-            <div>
-              <div className='text-right font-bold'>관심고객수</div>
-              <div className='text-right font-semibold'>{data.follower}명</div>
-            </div>
+        <>
+          <section className="w-264 h-264 relative">
+            <img className="w-264 h-52 rounded-xl cursor-pointer" src={data.brand_image_url} alt="product" onClick={modalClickHandler}></img>
+            <section className='flex justify-between mt-1'>
+              <div className="font-bold cursor-pointer" onClick={modalClickHandler}>{data.brand_name}</div>
+              <div>
+                <div className='text-right font-bold'>관심고객수</div>
+                <div className='text-right font-semibold'>{data.follower}명</div>
+              </div>
+            </section>
+            {mark ? <img className="absolute top-40 right-4 cursor-pointer" src={StarOn} alt="북마크" onClick={markHandler}></img> : 
+            <img className="absolute top-40 right-4 cursor-pointer" src={StarOff} alt="북마크" onClick={markHandler}></img>}
           </section>
-        </section>
+          <Modal imgUrl={data.brand_image_url} title={data.brand_name} modal={modal} setModal={setModal} mark={mark} setMark={setMark} data={data}/>
+        </>
       );
     default:
       return null;
