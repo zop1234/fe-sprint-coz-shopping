@@ -3,7 +3,6 @@
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"><img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
 
 # 쇼핑몰 프로젝트
-![image](https://github.com/zop1234/fe-sprint-coz-shopping/assets/124567984/4e1c412e-154f-4a79-b819-3e142ae0ee67)
 
 ### 사용한 라이브러리
 - react-icons: 아이콘을 사용하기 위해 사용
@@ -20,3 +19,8 @@
 1. fork or clone
 2. ```npm install```
 3. npm run start
+
+### 프로젝트 결과
+![image](https://github.com/zop1234/fe-sprint-coz-shopping/assets/124567984/4e1c412e-154f-4a79-b819-3e142ae0ee67)
+![image](https://github.com/zop1234/fe-sprint-coz-shopping/assets/124567984/2e49fe4a-ceae-4582-8542-c48c694a4108)
+![image](https://github.com/zop1234/fe-sprint-coz-shopping/assets/124567984/c9c8e62c-e1f9-4977-a1df-26064c929c70)
