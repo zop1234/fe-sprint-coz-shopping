@@ -24,3 +24,5 @@
 ![image](https://github.com/zop1234/fe-sprint-coz-shopping/assets/124567984/4e1c412e-154f-4a79-b819-3e142ae0ee67)
 ![image](https://github.com/zop1234/fe-sprint-coz-shopping/assets/124567984/2e49fe4a-ceae-4582-8542-c48c694a4108)
 ![image](https://github.com/zop1234/fe-sprint-coz-shopping/assets/124567984/c9c8e62c-e1f9-4977-a1df-26064c929c70)
+
+테스트입니다.
