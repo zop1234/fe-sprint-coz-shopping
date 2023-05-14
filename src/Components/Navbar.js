@@ -26,8 +26,8 @@ export default function Navbar() {
         <section className='bg-white w-52 h-36 absolute top-16 right-14 shadow-3xl rounded-lg'>
           <ul className='text-lg font-semibold w-full h-full'>
             <section className='flex justify-center items-center w-full h-1/3 border-b-2'>OOO님, 안녕하세요!</section>
-            <Link to="/products/list" className='flex justify-center items-center w-full h-1/3 border-b-2'><GiPresent size="30"/> 상품리스트 페이지</Link>
-            <Link to="/bookmark" className='flex justify-center items-center w-full h-1/3'><AiOutlineStar size="30"/> 북마크 페이지</Link>
+            <Link to="/products/list" className='flex justify-center items-center w-full h-1/3 border-b-2' onClick={menuHandler}><GiPresent size="30"/> 상품리스트 페이지</Link>
+            <Link to="/bookmark" className='flex justify-center items-center w-full h-1/3' onClick={menuHandler}><AiOutlineStar size="30"/> 북마크 페이지</Link>
           </ul>
         </section>
       }
