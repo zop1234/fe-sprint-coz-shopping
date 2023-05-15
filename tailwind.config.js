@@ -16,6 +16,9 @@ module.exports = {
         '1128': '1128px',
         '9999': '9999px',
       },
+      colors: {
+        'opacityWhite': 'rgba(256, 256, 256, 0.5)',
+      },
     },
   },
   plugins: [],
