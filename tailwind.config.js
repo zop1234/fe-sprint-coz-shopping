@@ -16,6 +16,9 @@ module.exports = {
         '1128': '1128px',
         '9999': '9999px',
       },
+      colors: {
+        'bgModal': 'rgba(0, 0, 0, 0.5)'
+      }
     },
   },
   plugins: [],

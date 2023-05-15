@@ -8,7 +8,7 @@ import {GiPresent} from 'react-icons/gi';
 
 export default function Navbar() {
   const [drop, setDrop] = useState(false);
-
+  
   const menuHandler = () => {
     drop ? setDrop(false) : setDrop(true);
   }
