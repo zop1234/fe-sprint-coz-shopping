@@ -37,7 +37,5 @@ export default function Modal({imgUrl, title, modal, setModal, mark, setMark, da
           <img className="absolute bottom-3 left-5 cursor-pointer" src={StarOff} alt="북마크" onClick={markHandler}></img>}
       </section>
     </>
-
-    
   );
 }

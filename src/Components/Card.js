@@ -36,7 +36,7 @@ export default function Card({data, bookmark_true}) {
     case "Product":
       return (
         <>
-          <section className="w-264 h-264 relative">
+          <section className="w-264 h-264 relative mt-4">
             <img className="w-264 h-52 rounded-xl cursor-pointer" src={data.image_url} alt={data.id} onClick={modalClickHandler}></img>
             <section className='flex justify-between mt-1'>
               <div className="font-bold cursor-pointer" onClick={modalClickHandler}>{data.title}</div>
@@ -58,7 +58,7 @@ export default function Card({data, bookmark_true}) {
     case "Category":
       return (
         <>
-          <section className="w-264 h-264 relative">
+          <section className="w-264 h-264 relative mt-4">
             <img className="w-264 h-52 rounded-xl cursor-pointer" src={data.image_url} alt={data.id} onClick={modalClickHandler}></img>
             <section className='mt-1'>
               <div className="font-bold cursor-pointer" onClick={modalClickHandler}>#{data.title}</div>
@@ -74,11 +74,11 @@ export default function Card({data, bookmark_true}) {
     case "Exhibition":
       return (
         <>
-          <section className="w-264 h-264 relative">
+          <section className="w-264 h-264 relative mt-4">
             <img className="w-264 h-52 rounded-xl cursor-pointer" src={data.image_url} alt={data.id} onClick={modalClickHandler}></img>
             <section className='mt-1 mt-1'>
               <div className="font-bold cursor-pointer" onClick={modalClickHandler}>{data.sub_title}</div>
-              <div className="font-semibold">{data.title}</div>
+              <div>{data.title}</div>
             </section>
             {mark ? <img className="absolute top-40 right-4 cursor-pointer" src={StarOn} alt="북마크" onClick={markHandler}></img> : 
             <img className="absolute top-40 right-4 cursor-pointer" src={StarOff} alt="북마크" onClick={markHandler}></img>}
@@ -91,7 +91,7 @@ export default function Card({data, bookmark_true}) {
     case "Brand":
       return (
         <>
-          <section className="w-264 h-264 relative">
+          <section className="w-264 h-264 relative mt-4">
             <img className="w-264 h-52 rounded-xl cursor-pointer" src={data.brand_image_url} alt="product" onClick={modalClickHandler}></img>
             <section className='flex justify-between mt-1'>
               <div className="font-bold cursor-pointer" onClick={modalClickHandler}>{data.brand_name}</div>

@@ -21,7 +21,13 @@ export default function Main() {
     <main className="pt-28">
       <div className="ml-10 mb-5 text-2xl font-bold">상품 리스트</div>
       <section className="flex justify-evenly">
-        {data && data.map((x) => <Card key={x.id} data={x} />)}
+        {data && data.map((x) => {
+          const local = JSON.parse(localStorage.getItem('bookmark')).filter((y) => y.id === x.id);
+          if (local.length) {
+            return <Card key={x.id} data={x} bookmark_true={true}/>
+          }
+          return <Card key={x.id} data={x} />
+        })}
       </section>
       <div className="ml-10 mb-5 text-2xl font-bold mt-10">북마크 리스트</div>
       <section className="flex justify-evenly">
