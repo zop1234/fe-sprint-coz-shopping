@@ -17,6 +17,8 @@ module.exports = {
         '9999': '9999px',
       },
       colors: {
+        'bgModal': 'rgba(0, 0, 0, 0.5)'
+      },
         'opacityWhite': 'rgba(256, 256, 256, 0.5)',
       },
     },

@@ -4,6 +4,7 @@ import Card from '../Components/Card';
 export default function Main() {
   const [data, setData] = useState("");
   const bookmarkData = JSON.parse(localStorage.getItem("bookmark"));
+  console.log(bookmarkData);
 
   useEffect(() => {
     fetch('http://cozshopping.codestates-seb.link/api/v1/products?count=4', {
@@ -30,9 +31,11 @@ export default function Main() {
       </section>
       <div className="ml-10 mb-5 text-2xl font-bold mt-10">북마크 리스트</div>
       <section className="flex justify-evenly">
-        {bookmarkData.length > 4 ?
-        bookmarkData.slice(bookmarkData.length-4).map((x) => <Card key={x.id} data={x} bookmark_true={true}/>) :
+        {bookmarkData && 0 < bookmarkData.length && bookmarkData.length <= 4 &&
         bookmarkData.map((x) => <Card key={x.id} data={x} bookmark_true={true}/>)
+        }
+        {bookmarkData && bookmarkData.length > 4 &&
+        bookmarkData.slice(bookmarkData.length-4).map((x) => <Card key={x.id} data={x} bookmark_true={true}/>)
         }
       </section>
     </main>
