@@ -49,9 +49,7 @@ export default function Card({data, bookmark_true}) {
             <img className="absolute top-40 right-4 cursor-pointer" src={StarOff} alt="북마크" onClick={markHandler}></img>}
           </section>
           {modal && 
-            // <div className="fixed w-full h-full top-0 left-0 bg-[rgba(0, 0, 0, 0.5)] z-40" onClick={(e) => {e.stopPropagation();modalClickHandler()}}>
-              <Modal imgUrl={data.image_url} title={data.title} modal={modal} setModal={setModal} mark={mark} setMark={setMark} data={data}/>
-            // </div>
+            <Modal imgUrl={data.image_url} title={data.title} modal={modal} setModal={setModal} mark={mark} setMark={setMark} data={data}/>
           }
         </>
       );

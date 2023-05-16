@@ -3,8 +3,11 @@ import Filter from '../Components/Filter';
 import Card from "../Components/Card";
 
 export default function Products() {
-  const [data, setData] = useState("");
+  const [entireData, setEntireData] = useState('');
+  const [data, setData] = useState([]);
   const [filter, setFilter] = useState("every");
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetch('http://cozshopping.codestates-seb.link/api/v1/products', {
@@ -16,12 +19,46 @@ export default function Products() {
       .then((res) => res.json())
       .then((data) => {
         if (filter === "every") {
-          return setData(data);
+          setEntireData(data);
+          setData(data.slice(0, 12));
+          return;
         }
-        const result = data.filter((x) => x.type === filter);
-        setData(result);
+        else {
+          setPage(1);
+          const result = data.filter((x) => x.type === filter);
+          setEntireData(result);
+          setData(result.slice(0, 12));
+        }
       })
+
+    
   }, [filter]);
+
+  useEffect(() => {
+    function handleScroll() {
+      const {scrollTop} = document.documentElement;
+      const {innerHeight} = window;
+      const {scrollHeight} = document.body;
+      if (scrollTop + innerHeight === scrollHeight) {
+        setPage(page + 1);
+      };
+    }
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [page])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+    const newData = entireData.slice(page * 12, (page + 1) * 12);
+    setData(prev => [...prev, ...newData]);
+    setIsLoading(false);
+    }
+    fetchData();
+  }, [page, entireData])
+
 
   return (
     <main className="pt-28 flex flex-col justify-center items-center">
@@ -34,6 +71,7 @@ export default function Products() {
           }
           return <Card key={x.id} data={x} />
         })}
+        {isLoading && <div>로딩중...</div>}
       </section>
     </main>
   );
