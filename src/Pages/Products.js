@@ -6,33 +6,32 @@ export default function Products() {
   const [entireData, setEntireData] = useState('');
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("every");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch('http://cozshopping.codestates-seb.link/api/v1/products', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (filter === "every") {
-          setEntireData(data);
-          setData(data.slice(0, 12));
-          return;
-        }
-        else {
-          setPage(1);
-          const result = data.filter((x) => x.type === filter);
-          setEntireData(result);
-          setData(result.slice(0, 12));
+    if (isLoading) return;
+    const fetchData = async () => {
+      setIsLoading(true);
+      const response = await fetch('http://cozshopping.codestates-seb.link/api/v1/products', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         }
       })
-
-    
-  }, [filter]);
+      const fetchResponse = await response.json();
+      if (filter === "every") {
+        setEntireData(fetchResponse);
+        setIsLoading(false);
+      }
+      else {
+        const result = await fetchResponse.filter((x) => x.type === filter);
+        setEntireData(result);
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, [filter, isLoading]);
 
   useEffect(() => {
     function handleScroll() {
@@ -47,22 +46,22 @@ export default function Products() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     }
-  }, [page])
+  }, [page, filter])
 
   useEffect(() => {
-    const fetchData = async () => {
+    if (isLoading) return;
+    const fetchData = () => {
       setIsLoading(true);
-    const newData = entireData.slice(page * 12, (page + 1) * 12);
-    setData(prev => [...prev, ...newData]);
-    setIsLoading(false);
+      const newData = entireData.slice(page * 12, (page + 1) * 12);
+      setData(prev => [...prev, ...newData]);
+      setIsLoading(false);
     }
     fetchData();
-  }, [page, entireData])
-
+  }, [page, entireData, isLoading])
 
   return (
     <main className="pt-28 flex flex-col justify-center items-center">
-      <Filter filter={filter} setFilter={setFilter}/>
+      <Filter filter={filter} setFilter={setFilter} setPage={setPage} setData={setData} setEntireData={setEntireData}/>
       <section className="flex flex-wrap justify-around w-1128 mt-10">
         {data && data.map((x) => {
           const local = JSON.parse(localStorage.getItem('bookmark')).filter((y) => y.id === x.id);
