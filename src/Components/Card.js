@@ -2,30 +2,42 @@ import React, { useState } from 'react';
 import Modal from './Modal';
 import StarOn from '../img/star-on.png';
 import StarOff from '../img/star-off.png';
+import Toast from './Toast';
 
 
 export default function Card({data, bookmark_true}) {
   const [mark, setMark] = useState(bookmark_true ? true : false);
   const [modal, setModal] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const markHandler = () => {
     if (mark) {
       setMark(false);
       const result = JSON.parse(localStorage.getItem('bookmark')).filter((x) => x.id !== data.id);
       localStorage.setItem('bookmark', JSON.stringify(result));
+      setToastMessage("북마크에서 제거되었습니다.");
+      setTimeout(() => {
+        setToastMessage("");
+      }, 1000)
     }
     else if (!mark) {
       setMark(true);
       if (localStorage.getItem('bookmark') === null) {
         localStorage.setItem('bookmark', JSON.stringify([data]));
+        setToastMessage("북마크에 추가되었습니다.");
+        setTimeout(() => {
+          setToastMessage("");
+        }, 1000)
       }
       else if (localStorage.getItem('bookmark') !== null) {
         const bookMarkList = [...JSON.parse(localStorage.getItem('bookmark')), data];
         localStorage.setItem('bookmark', JSON.stringify(bookMarkList));
+        setToastMessage("북마크에 추가되었습니다.");
+        setTimeout(() => {
+          setToastMessage("");
+        }, 1000)
       }
     }
-
-    return window.location.reload();
   };
 
   const modalClickHandler = () => {
@@ -50,6 +62,9 @@ export default function Card({data, bookmark_true}) {
           </section>
           {modal && 
             <Modal imgUrl={data.image_url} title={data.title} modal={modal} setModal={setModal} mark={mark} setMark={setMark} data={data}/>
+          }
+          {toastMessage && 
+            <Toast toastMessage={toastMessage}/>
           }
         </>
       );

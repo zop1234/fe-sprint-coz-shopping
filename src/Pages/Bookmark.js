@@ -16,7 +16,7 @@ export default function Bookmark() {
 
   return (
     <main className="pt-28 flex flex-col justify-center items-center">
-      <Filter filter={filter} setFilter={setFilter}/>
+      <Filter filter={filter} setFilter={setFilter} setData={setData}/>
       <section className="flex flex-wrap justify-around w-1128 mt-10">
         {data && data.map((x) => <Card key={x.id} data={x} bookmark_true={true} />)}
       </section>

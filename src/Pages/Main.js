@@ -24,7 +24,7 @@ export default function Main() {
         {data && data.map((x) => {
           const local = JSON.parse(localStorage.getItem('bookmark')).filter((y) => y.id === x.id);
           if (local.length) {
-            return <Card key={x.id} data={x} bookmark_true={true}/>
+            return <Card key={x.id} data={x} bookmark_true={true} />
           }
           return <Card key={x.id} data={x} />
         })}

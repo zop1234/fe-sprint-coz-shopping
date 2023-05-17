@@ -5,9 +5,13 @@ import categoryImg from '../img/category.png';
 import exhibitionImg from '../img/exhibition.png';
 import brandImg from '../img/brand.png';
 
-export default function Filter({filter, setFilter}) {
+export default function Filter({filter, setFilter, setPage, setEntireData, setData}) {
 
   const filterHandler = (type) => {
+    if (type === filter) return;
+    setEntireData && setEntireData('');
+    setData && setData([]);
+    setPage && setPage(0);
     setFilter(type);
   }
 
